@@ -1,142 +1,148 @@
+# Creating a Node
 class Node:
-    def __init__(self, data):
+    def __init__(self, data=None, next=None):
         self.data = data
-        self.ref = None
+        self.next = None
 
-class LinkedList:
+# Linked List
+class linkedList:
     def __init__(self):
-        self.head=None
-    
-    # Traversing a Linked List
-    def print_LL(self):
+        self.head = None
+
+    def insertInEmptyList(self,data):
         if self.head==None:
-            print("Linked List is empty.")
+            newNode = Node(data)
+            self.head = newNode
+        else:
+            print("Linked List is not empty.")
+    
+    # Traversing
+    def printLL(self):
+        if self.head==None:
+            print("Linked List is empty")
         else:
             n = self.head
-            while n is not None:
+            while n!=None:
                 print(n.data, "-->", end=" ")
-                n = n.ref
-            print("None")
+                n = n.next
+            print("Null")
 
-    # Adding at the begining
-    def add_begin(self, data):
-        new_node = Node(data)
-        new_node.ref = self.head
-        self.head = new_node
+    # Insertion
+    def insertAtBegining(self, data):
+        if self.head==None:
+            self.insertInEmptyList(data)
+        else:
+            newNode = Node(data)
+            newNode.next = self.head
+            self.head = newNode
     
-    # Adding at the end
-    def add_end(self,data):
-        new_node = Node(data)
-        # If linked list is empty
+    def insertAtEnd(self, data):
         if self.head==None:
-            new_node = self.head
-            self.head = new_node
+            self.insertInEmptyList(data)
         else:
+            newNode = Node(data)
             n = self.head
-            while n.ref != None:
-                n = n.ref
-            n.ref = new_node
-            new_node.ref = None
-
-    # Adding after the element
-    def add_after(self, data, x):
-        n = self.head
-        while n.ref != None:
-            if n.data == x:
-                break
-            else:
-                n = n.ref
-        if n is None:
-            print("Node is not present in the Linked List")
-        else:
-            new_node = Node(data)
-            new_node.ref = n.ref
-            n.ref = new_node
-
-    # Adding before the element
-    def add_before(self, data, x):
+            while n.next!=None:
+                n = n.next
+            n.next = newNode
+    
+    def insertAfterNode(self, data, x):
         if self.head==None:
-            print("Link list is empty")
-        elif self.head.data == x:
-            new_node = Node(data)
-            new_node.ref = self.head
-            self.head = new_node
+            self.insertInEmptyList(data)
         else:
+            newNode = Node(data)
             n = self.head
-            while(n.ref!=None):
-                if n.ref.data==x:
+            while n.next!=None:
+                if n.data==x:
                     break
                 else:
-                    n = n.ref
-            if n.ref is None:
-                print("Node is not present in the linked List.")
+                    n = n.next
+            if n is None:
+                print("Node is not present in Linked List")
             else:
-                new_node = Node(data)
-                new_node.ref = n.ref
-                n.ref = new_node
-    
-    # Insert in the empty list
-    def insert_empty(self,data):
-        if self.head==None:
-            new_node = Node(data)
-            self.head = new_node
-        else:
-            print("Linked list is not empty.")
-
-    # Deleting from begining
-    def delete_begin(self):
-        if self.head==None:
-            print("Linked list is already empty.")
-        else:
-            self.head = self.head.ref    
-
-    # Delete from end
-    def delete_end(self):
-        n = self.head
-        if n==None:
-            print("Linked list is already empty.")
-        elif n.ref==None:
-            self.head=None
-        else:
-            while(n.ref!=None):
-                if n.ref.ref==None:
-                    break
-                else:
-                    n = n.ref
-            n.ref = None
+                newNode.next  = n.next
+                n.next = newNode
         
-    # Delete in middle
-    def delete_middle(self,x):
-        n = self.head
-        if n==None:
-            print("Linked list is already emplty.")
+    def insertBeforeNode(self, data, x):
+        if self.head==None:
+            self.insertInEmptyList(data)
+        elif self.head.data==x:
+            self.insertAtBegining(data)
         else:
-            while(n.ref!=None):
-                if (n.ref.data==x):
+            newNode = Node(data)
+            n = self.head
+            while n.next!= None:
+                if n.next.data==x:
                     break
                 else:
-                    n = n.ref
-            n.ref = n.ref.ref
+                    n = n.next
+            if n is None:
+                print("Node is not present in Linked List.")
+            else:
+                newNode.next = n.next
+                n.next = newNode
 
-               
+    def IsLinkedListEmpty(self):
+        if self.head==None:
+            print("Linked List is already empty")
+            return True
+        else:
+            print("Linked List is not empty")
+            return False
+    
+    # Deletion
+    def deleteAtBegining(self):
+        if self.head==None:
+            self.IsLinkedListEmpty()
+        else:
+            self.head = self.head.next
+    
+    def deleteAtEnd(self):
+        if self.head==None:
+            self.IsLinkedListEmpty()
+        elif self.head.next==None:
+            self.deleteAtBegining()
+        else:
+            n = self.head
+            while n.next.next!=None:
+                n = n.next
+            n.next = n.next.next
 
+    def deleteAtMiddle(self, x):
+        if self.head==None:
+            self.IsLinkedListEmpty()
+        elif self.head.next==None:
+            self.deleteAtBegining()
+        else:
+            n = self.head
+            while n.next!=None:
+                if n.next.data == x:
+                    break
+                else:
+                    n = n.next
+            if n.next is None:
+                print("Element is not present")
+            else:
+                n.next = n.next.next
 
+LL = linkedList()
 
-# Printing
-LL1 = LinkedList()
-LL1.insert_empty(10)
-LL1.add_begin(3)
-LL1.add_end(1)
-LL1.add_begin(5)
-LL1.add_after(data=7, x=5)
-LL1.add_before(data=80, x=7)
-LL1.add_end(99) 
-print("Before deleting...")
-LL1.print_LL() # 5 80 7 3 10 1 99
+# Insertion
+print("Insertion")
 
+LL.insertAtBegining(5)
+LL.insertAtBegining(23)
 
-print("\nAfter Deleting...")
-LL1.delete_begin()
-LL1.delete_middle(3)
-LL1.delete_end()
-LL1.print_LL() # 80 7 10 1 
+LL.insertAtEnd(10)
+LL.insertAtEnd(20)
+LL.insertAfterNode(data=32, x=5)
+LL.insertBeforeNode(data=40, x=20)
+LL.printLL()
+
+#Deletion
+print("Deletion")
+LL.deleteAtBegining()
+LL.deleteAtEnd()
+LL.deleteAtMiddle(32)
+LL.printLL()
+
