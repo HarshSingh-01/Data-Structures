@@ -1,28 +1,32 @@
 # Selection Sort 
 
 """
-Logic:
-1. Loop, i = range from 0 to len(arr)-1
+Alogrithm
+1. Loop, step = range from 0 to size-1
 2. define min_index = i
-3. Nested loop under i, j = range from i+1 to len(arr)-1 (Second loop is for comparing arr[min_index] element from arr[1,2.....size-1])
-4. if arr[min_index]>arr[j], then change the min_index = j
-5. Swap the values of arr[i] and arr[min_index] (after doing that you will get smallest number at the min_index.
-
+3. Nested loop under size, i = range from step+1 to size-1 (Second loop is for comparing arr[min_index] element from arr[1,2.....size-1])
+4. if arr[min_index]>arr[i], then change the min_index = i
+5. Swap the values of arr[step] and arr[min_index] (after doing that you will get smallest number at the min_index.
 """
 
-def selectionSort(arr):
-    for i in range(len(arr)):
-        min_index = i
-        for j in range(i+1, len(arr)):
-            if arr[min_index]>arr[j]:
-                # Getting new minimum index
-                min_index = j
-        # Swaping        
-        arr[min_index], arr[i] = arr[i], arr[min_index]
+def selectionSort(array, size):
 
-    return arr
+   for step in range(size):
+        min_idx = step
 
+        for i in range(step+1, size):
+         
+            # to sort in descending order, change > to < in this line
+            # select the minimum element in each loop
+            if array[i] < array[min_idx]:
+                min_idx = i
+         
+        # put min at the correct position
+        (array[step], array[min_idx]) = (array[min_idx], array[step])
+
+   return array
 # Testing
 array = [7, 2, 1, 6]
+size = len(array)
 
-print("Sorted Array:",selectionSort(array))
+print("Sorted Array:",selectionSort(array, size))
